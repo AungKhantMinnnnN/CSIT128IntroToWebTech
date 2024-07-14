@@ -4,11 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assignment 1</title>
-
-    <!-- Javascript section -->
-    <script type="text/javascript">
-        
-    </script>
 </head>
 
 <body>
@@ -228,6 +223,68 @@
     </div>
 
     <!--#endregion-->
+
+    <br /><br />
+
+    <!-- #region Part 4-->
+    <table id="formTable">
+        <form>
+            <tr>
+                <td>
+                    <label for="userName">Name: </label>
+                </td>
+                <td>
+                    <input type="text" id="userName" name="userName" class="formInput" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="modCode">Module Code: </label>
+                </td>
+                <td>
+                    <input type="text" id="modCode" name="modCode" class="formInput" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="currentDate">Current Date: </label>
+                </td>
+                <td>
+                    <input id="currentDate" name="currentDate" class="formInput" disabled/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="message">Message: </label>
+                </td>
+                <td>
+                    <textarea id="message" name="message" rows="10" cols="40">Hello 202407</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="find">Find: </label>
+                </td>
+                <td>
+                    <input id="find" name="find" class="formInput" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="repalce">Replace: </label>
+                </td>
+                <td>
+                    <input id="replace" name="replace" class="formInput" disabled/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button onclick="findAndReplace()">Find and replace</button>
+                </td>
+            </tr>
+        </form>
+    </table>
+    <!-- #endregion-->
 </body>
 
 
@@ -244,6 +301,14 @@
         border: 1px solid black;
     }
 
+    #formTable{
+        padding-left: 40px;
+    }
+
+    #message{
+        resize: none;
+    }
+
     .titleHeader{
         font-weight: bolder;
         text-decoration: underline;
@@ -251,6 +316,7 @@
 
     .tableContent{
         border : 1px solid black;
+        text-align: center;
     }
 
     .codeSnippet{
@@ -290,9 +356,46 @@
         margin: 0;
     }
 
+    .formInput{
+        width: 60%;
+    }
+
 </style>
 
+<!-- Javascript section -->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(){
+        getCurrentDate();
+    });
+    
+    document.getElementById("find").addEventListener("keyup", function(){
+        var findValue = document.getElementById("find").value;
 
+        if (findValue != "") {
+            document.getElementById("replace").disabled = false;
+        }else{
+            document.getElementById("replace").disabled = true;
+        }
+    })
 
+    function getCurrentDate() {
+            var monthArray = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            var dayArray = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const currentDate = new Date();
+            var date = currentDate.getDate();
+            var month = monthArray[currentDate.getMonth()];
+            var year = currentDate.getFullYear();
+            var day = dayArray[currentDate.getDay()];
+            var time = currentDate.toLocaleTimeString();
+
+            var formattedDateString = date + " " + month + " " + year + " " + day + " " + time;
+
+            document.getElementById("currentDate").value = formattedDateString;
+    }
+
+    function findAndReplace(){
+
+    }
+</script>
 
 </html>
