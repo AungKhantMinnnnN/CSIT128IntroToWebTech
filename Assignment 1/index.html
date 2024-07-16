@@ -227,7 +227,7 @@
     <br /><br />
 
     <!-- #region Part 4-->
-    <table id="formTable">
+    <table id="formTable" >
         <form>
             <tr>
                 <td>
@@ -281,8 +281,52 @@
                 <td>
                     <button onclick="findAndReplace()">Find and replace</button>
                 </td>
+                <td>
+                    <span id="result"></span>
+                </td>
             </tr>
         </form>
+    </table>
+
+    <br /><br />
+
+    <table id="translateTable">
+        <tr>
+            <th>Source Language: </th>
+            <th>Target Language: </th>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" id="english" name="sourceLanguage" value="English" checked />
+                <label for="english">English</label>
+            </td>
+            <td>
+                <input type="radio" id="chinese" name="targetLanguage" value="zh-CN" checked />
+                <label for="chinese">Chinese</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" id="Malay" name="sourceLanguage" value="Malay" />
+                <label for="english">Malay</label>
+            </td>
+            <td>
+                <input type="radio" id="japanese" name="targetLanguage" value="ja" />
+                <label for="japanese">Japanese</label>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="radio" id="korean" name="targetLanguage" value="ko" />
+                <label for="korean">Korean</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button id="submitTranslate" onclick="submitTranslate()">Submit</button>
+            </td>
+        </tr>
     </table>
     <!-- #endregion-->
 </body>
@@ -301,7 +345,7 @@
         border: 1px solid black;
     }
 
-    #formTable{
+    #formTable, #translateTable{
         padding-left: 40px;
     }
 
@@ -394,8 +438,29 @@
     }
 
     function findAndReplace(){
+        event.preventDefault();
 
+        var findTxt = document.getElementById("find").value;
+        var replaceTxt = document.getElementById("replace").value;
+        var txtArea = document.getElementById("message");
+        var result = document.getElementById("result");
+
+        var orgValue = txtArea.value;
+        var regex = new RegExp(findTxt, 'gi');
+        var updatedValue = orgValue.replace(regex, replaceTxt);
+        var replacementCount = (orgValue.match(regex) || []).length;
+
+        txtArea.value = updatedValue;
+        result.textContent = replacementCount;
     }
+
+    function submitTranslate(){
+        event.preventDefault();
+        var message = document.getElementById("message").value;
+        var targetLanguage = document.querySelector('input[name="targetLanguage"]:checked').value;
+        const translateUrl = `https://translate.google.com/?sl=auto&tl=${targetLanguage}&text=${message}&op=translate`;
+        window.open(translateUrl, 'blank');
+    }   
 </script>
 
 </html>
