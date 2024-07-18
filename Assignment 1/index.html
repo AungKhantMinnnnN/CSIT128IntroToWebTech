@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A1-T10-8536314,UOWID2,UOWID3(Zay,Nang,Aung)</title>
+    <title>A1-T10-8536314,UOWID2,7435228(Zay,Nang,Aung)</title>
 </head>
 
 <body>
@@ -33,9 +33,9 @@
 
         <tr>
             <!-- Input your uow id, name and uow mail here -->
-            <td colspan="1" class="tableContent">UOW ID 3</td>
-            <td colspan="1" class="tableContent">Name 3</td>
-            <td colspan="1" class="tableContent">UOW mail 3</td>
+            <td colspan="1" class="tableContent">7435228</td>
+            <td colspan="1" class="tableContent">AUNG KHANT MIN</td>
+            <td colspan="1" class="tableContent">akm423@uowmail.edu.au</td>
         </tr>
     </table>
     <!--#endregion-->
@@ -234,7 +234,10 @@
                     <label for="userName">Name: </label>
                 </td>
                 <td>
-                    <input type="text" id="userName" name="userName" class="formInput" />
+                    <div class="formInputDiv">
+                        <input type="text" id="userName" name="userName" class="formInput" />
+                        <div id="nameErrorMsg" class="errorMsg"></div>
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -242,7 +245,10 @@
                     <label for="modCode">Module Code: </label>
                 </td>
                 <td>
-                    <input type="text" id="modCode" name="modCode" class="formInput" />
+                    <div class="formInputDiv">
+                        <input type="text" id="modCode" name="modCode" class="formInput" />
+                        <div id="modCodeErrorMsg" class="errorMsg"></div>
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -258,7 +264,12 @@
                     <label for="message">Message: </label>
                 </td>
                 <td>
-                    <textarea id="message" name="message" rows="10" cols="40">Hello 202407</textarea>
+                    <div class="formInputDiv">
+                        <div id="textAreaContainer">
+                            <textarea id="message" name="message" rows="10" cols="40">Hello 202407</textarea>   
+                        </div>
+                        <div id="messageAreaErrorMsg" class="errorMsg"></div>
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -325,6 +336,7 @@
         <tr>
             <td>
                 <button id="submitTranslate" onclick="submitTranslate()">Submit</button>
+                <button onclick="resetForm()">Reset</button>
             </td>
         </tr>
     </table>
@@ -351,6 +363,13 @@
 
     #message{
         resize: none;
+        flex: 1;
+    }
+
+    #textAreaContainer{
+        flex: 1;
+        display: flex;
+        flex-direction: column;
     }
 
     .titleHeader{
@@ -404,6 +423,18 @@
         width: 60%;
     }
 
+    .errorMsg{
+        display: none;
+        width: 100%;
+        padding-left: 10px;
+    }
+
+    .formInputDiv{
+        display: flex;
+        flex-shrink: initial;
+        width: 100%;
+    }
+
 </style>
 
 <!-- Javascript section -->
@@ -440,27 +471,100 @@
     function findAndReplace(){
         event.preventDefault();
 
-        var findTxt = document.getElementById("find").value;
-        var replaceTxt = document.getElementById("replace").value;
-        var txtArea = document.getElementById("message");
-        var result = document.getElementById("result");
+        var isValid = validateFormValues();
+        if(isValid){
+            var findTxt = document.getElementById("find").value;
+            var replaceTxt = document.getElementById("replace").value;
+            var txtArea = document.getElementById("message");
+            var result = document.getElementById("result");
 
-        var orgValue = txtArea.value;
-        var regex = new RegExp(findTxt, 'gi');
-        var updatedValue = orgValue.replace(regex, replaceTxt);
-        var replacementCount = (orgValue.match(regex) || []).length;
+            var orgValue = txtArea.value;
+            var regex = new RegExp(findTxt, 'gi');
+            var updatedValue = orgValue.replace(regex, replaceTxt);
+            var replacementCount = orgValue.match(regex).length > 0 ? orgValue.match(regex).length : 0;
 
-        txtArea.value = updatedValue;
-        result.textContent = replacementCount;
+            txtArea.value = updatedValue;
+            result.textContent = replacementCount;
+        }
     }
 
     function submitTranslate(){
         event.preventDefault();
-        var message = document.getElementById("message").value;
-        var targetLanguage = document.querySelector('input[name="targetLanguage"]:checked').value;
-        const translateUrl = `https://translate.google.com/?sl=auto&tl=${targetLanguage}&text=${message}&op=translate`;
-        window.open(translateUrl, 'blank');
+
+        var isValid = validateFormValues();
+        if(isValid){
+            var message = document.getElementById("message").value;
+            var targetLanguage = document.querySelector('input[name="targetLanguage"]:checked').value;
+            const translateUrl = `https://translate.google.com/?sl=auto&tl=${targetLanguage}&text=${message}&op=translate`;
+            window.open(translateUrl, 'blank');
+        }
     }   
+
+    function resetForm(){
+        var name = document.getElementById("userName");
+        var modCode = document.getElementById("modCode");
+        var message = document.getElementById("message");
+        var find = document.getElementById("find");
+        var result = document.getElementById("result");
+
+        name.value = "";
+        modCode.value = "";
+        message.value = "Hello 202407";
+        find.value = "";
+        result.textContent = ""
+
+        document.getElementById("english").checked = true;
+        document.getElementById("chinese").checked = true;
+
+        var errorMessages = document.getElementsByClassName("errorMsg");
+        for(var i = 0; i < errorMessages.length; i++){
+            errorMessages[i].style.display = "none";
+        }
+    }
+
+    function validateFormValues(){
+        var isValid = true;
+
+        var name = document.getElementById("userName").value;
+        var modCode = document.getElementById("modCode").value;
+        var message = document.getElementById("message").value;
+
+        const validatedName = name.replace(/[^\sa-zA-Z]/g, '');
+        var nameErrorMsg = document.getElementById("nameErrorMsg");
+        if(name != ""){
+            if (name != validatedName) {
+                nameErrorMsg.textContent = "Name cannot include numbers and special characters.";
+                nameErrorMsg.style.color = "red";
+                nameErrorMsg.style.display = "block";
+                isValid = false;
+            }
+        }else{
+            nameErrorMsg.textContent = "Name cannot be empty.";
+            nameErrorMsg.style.color = "red";
+            nameErrorMsg.style.display = "block";
+            isValid = false;
+        }
+
+        const modRegex = /^[A-Z]{2}[3-6][3-6]\d$/;
+        var modCodeErrorMsg = document.getElementById("modCodeErrorMsg");
+        console.log(modRegex.test(modCode));
+        if(modCode != "" || !modRegex.test(modCode)){
+            modCodeErrorMsg.textContent = "Please follow the format for module code."
+            modCodeErrorMsg.style.color = "red";
+            modCodeErrorMsg.style.display = "block";
+            isValid = false;
+        }
+
+        var messageAreaErrorMsg = document.getElementById("messageAreaErrorMsg");
+        if(message == ""){
+            messageAreaErrorMsg.textContent = "Message area cannot be empty."
+            messageAreaErrorMsg.style.color = "red";
+            messageAreaErrorMsg.style.display = "block";
+            isValid = false;
+        }
+
+        return isValid;
+    }
 </script>
 
 </html>
