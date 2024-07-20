@@ -547,8 +547,7 @@
 
         const modRegex = /^[A-Z]{2}[3-6][3-6]\d$/;
         var modCodeErrorMsg = document.getElementById("modCodeErrorMsg");
-        console.log(modRegex.test(modCode));
-        if(modCode != "" || !modRegex.test(modCode)){
+        if(modCode != "" && !modRegex.test(modCode)){
             modCodeErrorMsg.textContent = "Please follow the format for module code."
             modCodeErrorMsg.style.color = "red";
             modCodeErrorMsg.style.display = "block";
