@@ -50,7 +50,7 @@
                 Your chosen number:
             </td>
             <td class="gameTableContent" style="background-color: lightblue;">
-                <select>
+                <select id="chosenNumber">
                     <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -63,19 +63,19 @@
                     <option value="9">9</option>
                 </select></td>
             <td class="gameTableContent" style="background-color: lightyellow;">
-                Current Score: <span class="score-value">0</span>
+                Current Score: <span id="score-value">0</span>
             </td>
         </tr>
         <tr>
             <td colspan="3" class="gameTableContent">
-                <button class="startButton">Start Game</button>
-                <button class="stopButton">Stop Game</button>
+                <button class="startButton" id="startGame" onclick="startGame()">Start Game</button>
+                <button class="stopButton" id="stopGame" onclick="endGame()">Stop Game</button>
             </td>
         </tr>
         <tr>
-            <td class="gameTableContent" style="color:orange;"></td>
-            <td class="gameTableContent" style="color:blue;"></td>
-            <td class="gameTableContent" style="color:green;"></td>
+            <td class="gameTableContent" id="num1" style="color:orange;" onclick="clickFirstNum(event)"></td>
+            <td class="gameTableContent" id="num2" style="color:blue;" onclick="clickSecondNum(event)"></td>
+            <td class="gameTableContent" id="num3" style="color:green;" onclick="clickThirdNum(event)"></td>
         </tr>
     </table>
     <!-- #endregion -->
@@ -121,10 +121,92 @@
         padding: 10px;
     }
 
-    .score-value{
+    #score-value{
         color: red;
     }
 
 </style>
+
+<script type="text/javascript">
+    let chosenNumber = 0;
+    let currentScore = 0;
+    let interval = null;
+
+    let firstNumberChosenCount = 0; 
+    let secondNumberChosenCount = 0;
+    let thirdNumberChosenCount = 0;
+
+    function startGame(){
+        chosenNumber = parseInt(document.getElementById("chosenNumber").value);
+        currentScore = 0;
+        updateScore();
+        startInterval();
+    }
+
+    function endGame(){
+        clearInterval(interval);
+    }
+
+    function updateScore(){
+        document.getElementById("score-value").textContent = currentScore;
+    }
+
+    function startInterval(){
+        if(interval){
+            clearInterval(interval);
+        }
+        interval = setInterval(generateRandomNumber, 2000);
+    }
+
+    function generateRandomNumber(){
+        let numbers = [];
+        while (numbers.length < 3){
+            let random = Math.floor(Math.random() * 10)
+            if(!numbers.includes(random)){
+                numbers.push(random);
+            }
+        }
+        document.getElementById("num1").textContent = numbers[0];
+        document.getElementById("num2").textContent = numbers[1];
+        document.getElementById("num3").textContent = numbers[2];
+    }
+
+    function clickFirstNum(event){
+        let clickedNumber = parseInt(event.target.textContent);
+        if(firstNumberChosenCount == 0){
+            if(clickedNumber == chosenNumber){
+                currentScore += 3;
+            }else{
+                currentScore -= 2;
+            }
+            updateScore();
+        }
+    }
+
+    function clickSecondNum(event) {
+        let clickedNumber = parseInt(event.target.textContent);
+        if (secondNumberChosenCount == 0) {
+            if (clickedNumber == chosenNumber) {
+                currentScore += 3;
+            } else {
+                currentScore -= 2;
+            }
+            updateScore();
+        }
+    }
+
+    function clickThirdNum(event) {
+        let clickedNumber = parseInt(event.target.textContent);
+        if (thirdNumberChosenCount == 0) {
+            if (clickedNumber == chosenNumber) {
+                currentScore += 3;
+            } else {
+                currentScore -= 2;
+            }
+            updateScore();
+        }
+    }
+
+</script>
 
 </html>
