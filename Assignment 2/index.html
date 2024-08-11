@@ -6,6 +6,125 @@
     <title>A2-T10-8536314,8496493,7435228(Zay,Nang,Aung)</title>
 </head>
 <body>
+
+    <!--#region Part 1-->
+    <h2 class="titleHeader">Part 1:</h2>
+    <table id="stdTable">
+        <tr id="headerRow">
+            <th colspan="4" class="tableContent">CSIT128: Assignment 2</th>
+            <th class="tableContent">Group T10</th>
+        </tr>
     
+        <tr>
+            <td rowspan="3" colspan="2" class="tableContent" id="stdInfo">Student Number / Name / Email</td>
+            <!-- Input your uow id, name and uow mail here -->
+            <td colspan="1" class="tableContent">8536314</td>
+            <td colspan="1" class="tableContent">ZAY LIN HTET</td>
+            <td colspan="1" class="tableContent">zlh867@uowmail.edu.au</td>
+        </tr>
+    
+        <tr>
+            <!-- Input your uow id, name and uow mail here -->
+            <td colspan="1" class="tableContent">8496493</td>
+            <td colspan="1" class="tableContent">NANG MOON MOON SENG</td>
+            <td colspan="1" class="tableContent">nmms272@uowmail.edu.au</td>
+        </tr>
+    
+        <tr>
+            <!-- Input your uow id, name and uow mail here -->
+            <td colspan="1" class="tableContent">7435228</td>
+            <td colspan="1" class="tableContent">AUNG KHANT MIN</td>
+            <td colspan="1" class="tableContent">akm423@uowmail.edu.au</td>
+        </tr>
+    </table>
+    <!--#endregion-->
+
+    <!-- #region Part 2-->
+    <h2 class="titleHeader">Part 2:</h2>
+    <table id="gameTable">
+        <tr>
+            <th colspan="3" class="gameTitleHeader">Part 2: Game</th>
+        </tr>
+        <tr>
+            <td class="gameTableContent" style="background-color: lightblue;">
+                Your chosen number:
+            </td>
+            <td class="gameTableContent" style="background-color: lightblue;">
+                <select>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                </select></td>
+            <td class="gameTableContent" style="background-color: lightyellow;">
+                Current Score: <span class="score-value">0</span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="gameTableContent">
+                <button class="startButton">Start Game</button>
+                <button class="stopButton">Stop Game</button>
+            </td>
+        </tr>
+        <tr>
+            <td class="gameTableContent" style="color:orange;"></td>
+            <td class="gameTableContent" style="color:blue;"></td>
+            <td class="gameTableContent" style="color:green;"></td>
+        </tr>
+    </table>
+    <!-- #endregion -->
+
 </body>
+
+<style>
+
+    #stdTable{
+        margin: 0 auto;
+        border: 1px solid black;
+        width: 60%;
+        height: 50vh;
+    }
+
+    #headerRow > .tableContent{
+        background-color: lightblue;
+    }
+
+    .tableContent{
+        border : 1px solid black;
+        text-align: center;
+    }
+
+    #gameTable{
+        width: 50%;
+        margin: 50px auto;
+        border-collapse: collapse;
+        border: 2px solid black;
+        font-family: Arial, sans-serif;
+    }
+
+    .gameTitleHeader{
+        background-color: peachpuff;
+        font-size: 24px;
+        padding: 10px;
+        border: 1px solid black;
+    }
+
+    .gameTableContent{
+        text-align: center;
+        border: 1px solid black;
+        padding: 10px;
+    }
+
+    .score-value{
+        color: red;
+    }
+
+</style>
+
 </html>
