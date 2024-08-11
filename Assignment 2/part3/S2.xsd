@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!-- Root element definition -->
+    <xs:element name="forecast">
+        <xs:complexType>
+            <xs:sequence>
+                <!-- Repeating weather element -->
+                <xs:element name="weather" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <!-- Date components -->
+                            <xs:element name="year" type="xs:int"/>
+                            <xs:element name="month" type="xs:int"/>
+                            <xs:element name="date" type="xs:int"/>
+                            <xs:element name="dayOfWeek" type="xs:string"/>
+                            <!-- Weather details -->
+                            <xs:element name="overall" type="xs:string"/>
+                            <xs:element name="overallCode" type="xs:string"/>
+                            <xs:element name="highest" type="xs:int"/>
+                            <xs:element name="lowest" type="xs:int"/>
+                        </xs:sequence>
+                        <!-- Attribute for weather element -->
+                        <xs:attribute name="yyyymmdd" type="xs:string" use="required"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <!-- Attributes for forecast element -->
+            <xs:attribute name="queryTime" type="xs:string" use="required"/>
+            <xs:attribute name="queryLocation" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
+

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<?xml-stylesheet type="text/xsl" href="part3.xsl"?>
+<?xml-stylesheet type="text/xsl" href="S2.xsl"?>
 <forecast queryTime="31/7/2024 2:30 PM" queryLocation="Singapore">
   <weather yyyymmdd="20240531">
     <year>2024</year>	
