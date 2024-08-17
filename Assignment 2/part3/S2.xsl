@@ -34,7 +34,7 @@
                         <td bgcolor="#D2691E" style="border:2px solid black;">
                             <xsl:value-of select="date" />
                             <xsl:text> </xsl:text>
-                            <xsl:if test="month = 3"> 
+                            <xsl:if test="month = 1"> 
                                 <xsl:text> Jan</xsl:text>
                             </xsl:if>
                             <xsl:if test="month = 2"> 
