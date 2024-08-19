@@ -6,7 +6,7 @@
         <xs:complexType>
             <xs:sequence>
                 <!-- Repeating weather element -->
-                <xs:element name="weather" maxOccurs="unbounded">
+                <xs:element name="weather" minOccurs="0" maxOccurs="unbounded">
                     <xs:complexType>
                         <xs:sequence>
                             <!-- Date components -->
