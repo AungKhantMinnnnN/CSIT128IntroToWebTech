@@ -141,6 +141,7 @@
     let thirdNumberChosenCount = 0;
 
     function startGame(){
+        document.getElementById("chosenNumber").disabled = true;
         chosenNumber = parseInt(document.getElementById("chosenNumber").value);
         currentScore = 0;
         updateScore();
@@ -148,6 +149,7 @@
     }
 
     function endGame(){
+        document.getElementById("chosenNumber").disabled = false;
         clearInterval(interval);
     }
 
